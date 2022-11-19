@@ -1,0 +1,48 @@
+.task {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding: 5px 10px;
+}
+.task p {
+  width: 300px;
+  font-size: 25px;
+  margin-right: 20px;
+}
+.task .buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.read,
+.edit,
+.delete {
+  outline: 1px solid grey;
+  background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  width: 200px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 20px;
+  width: 150px;
+  height: 40px;
+  margin-right: 10px;
+  padding: 5px;
+}
+.read:hover,
+.edit:hover,
+.delete:hover {
+  outline: none;
+  background-color: #1E90FF;
+  color: white;
+}
+.read:active,
+.edit:active,
+.delete:active {
+  outline: none;
+  background-color: #1d7ad8;
+  color: white;
+}
+/*# sourceMappingURL=task.module.css.map */

@@ -1,0 +1,37 @@
+@titlesColor: rgb(66, 63, 63);
+@inputErrorColor: #db1010;
+
+.button(){
+    outline: 1px solid grey;
+    background-color: #fff;
+    border: none;
+    border-radius: 8px;
+    &:hover{
+        outline: none;
+        background-color: #1E90FF;
+        color: white;
+    }
+    &:active{
+        outline: none;
+        background-color:#1d7ad8;
+        color: white;
+    }
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 20px;
+}
+.input(){
+    outline: 1px solid rgb(143, 138, 138);
+    border-radius: 8px;    
+    padding: 5px;
+    &:hover{
+        box-shadow: 2px 2px 2px black;
+        outline: 1px solid rgb(0, 0, 0);
+    }
+    max-width: 500px;
+    height: 40px;
+    font-size: 20px;
+    margin-bottom: 20px;
+
+}

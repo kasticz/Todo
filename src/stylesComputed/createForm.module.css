@@ -1,0 +1,125 @@
+.createForm {
+  margin-bottom: 50px;
+}
+.createForm .textArea {
+  display: flex;
+  flex-direction: column;
+}
+.createForm .textArea textarea {
+  outline: 1px solid #8f8a8a;
+  border-radius: 8px;
+  padding: 5px;
+  max-width: 500px;
+  height: 40px;
+  font-size: 20px;
+  margin-bottom: 20px;
+  height: auto;
+  max-width: 100%;
+  font-size: 18px;
+  padding: 5px 10px;
+}
+.createForm .textArea textarea:hover {
+  box-shadow: 2px 2px 2px black;
+  outline: 1px solid #000000;
+}
+.createForm .textArea label {
+  color: #423f3f;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.createForm .textArea span {
+  color: #db1010;
+  margin-bottom: 5px;
+}
+.createForm button {
+  outline: 1px solid grey;
+  background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  width: 200px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.createForm button:hover {
+  outline: none;
+  background-color: #1E90FF;
+  color: white;
+}
+.createForm button:active {
+  outline: none;
+  background-color: #1d7ad8;
+  color: white;
+}
+.createForm .disabledButton:hover,
+.createForm .disabledButton:focus,
+.createForm .disabledButton:active {
+  cursor: not-allowed;
+  color: black;
+  background-color: #a09e9e;
+}
+.createTaskError,
+.createTaskLoading,
+.createTaskSuccess {
+  font-size: 30px;
+}
+.createTaskError {
+  color: #db1010;
+}
+.createTaskSuccess {
+  color: #35af3b;
+}
+.createTitle {
+  text-align: center;
+  font-size: 30px;
+  margin-top: 50px;
+}
+.alreadyAttachedFiles {
+  margin-bottom: 20px;
+}
+.alreadyAttachedFiles p {
+  color: #423f3f;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.alreadyAttachedFiles .allreadyAttached li {
+  margin-left: 20px;
+}
+.alreadyAttachedFiles .allreadyAttached li a {
+  margin-right: 20px;
+}
+.alreadyAttachedFiles button {
+  outline: 1px solid grey;
+  background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  width: 200px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 20px;
+  width: auto;
+}
+.alreadyAttachedFiles button:hover {
+  outline: none;
+  background-color: #1E90FF;
+  color: white;
+}
+.alreadyAttachedFiles button:active {
+  outline: none;
+  background-color: #1d7ad8;
+  color: white;
+}
+.alreadyAttachedFiles span {
+  font-size: 20px;
+}
+.finishTask {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.finishTask input {
+  margin-left: 10px;
+  transform: scale(2);
+}
+/*# sourceMappingURL=createForm.module.css.map */

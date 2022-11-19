@@ -1,0 +1,28 @@
+.viewPageTitle {
+  font-size: 30px;
+  text-align: center;
+}
+.itemField {
+  font-size: 20px;
+}
+.itemField h3 {
+  color: #423f3f;
+}
+.file a {
+  margin-right: 20px;
+}
+.attachedList h3 {
+  color: #423f3f;
+  font-size: 20px;
+}
+.attachedList li {
+  margin-left: 20px;
+}
+.downloadMsg {
+  font-size: 20px;
+}
+.isFinished {
+  font-weight: 700;
+  font-size: 25px;
+}
+/*# sourceMappingURL=viewTask.module.css.map */

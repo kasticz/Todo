@@ -1,0 +1,84 @@
+@import './variables.less';
+.createForm{
+    .textArea{
+        display: flex;
+        flex-direction: column;        
+        textarea{
+            .input();
+            height: auto;
+            max-width: 100%;
+            font-size: 18px;
+            padding: 5px 10px;
+        }
+
+        label{
+            color: @titlesColor;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }  
+        span{
+            color: @inputErrorColor;
+            margin-bottom: 5px;
+        }      
+    }
+    button{
+        .button()   
+    }
+    .disabledButton{
+        &:hover,&:focus,&:active{
+            cursor: not-allowed;
+            color:black;
+            background-color: rgb(160, 158, 158);
+        }
+    }
+    margin-bottom: 50px;
+}
+.createTaskError,.createTaskLoading,.createTaskSuccess{
+    font-size: 30px;
+}
+.createTaskError{
+    color: @inputErrorColor;
+
+}
+.createTaskSuccess{
+    color:rgb(53, 175, 59);
+}
+.createTitle{
+    text-align: center;
+    font-size: 30px;
+    margin-top: 50px;
+}
+.alreadyAttachedFiles{
+    margin-bottom: 20px;
+    p{
+        color:@titlesColor;
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-weight: 700;
+    }
+    .allreadyAttached{
+        li{
+            margin-left: 20px;
+            a{
+                margin-right: 20px;
+            }
+        }
+    }
+    button{
+        .button();
+        width: auto;   
+    }
+    span{
+        font-size: 20px;
+    }
+
+}
+.finishTask{
+    font-size: 20px;
+    margin-bottom: 20px;
+    input{
+        margin-left: 10px;
+        transform: scale(2);
+    }
+}

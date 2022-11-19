@@ -1,0 +1,28 @@
+.input {
+  display: flex;
+  flex-direction: column;
+}
+.input input {
+  outline: 1px solid #8f8a8a;
+  border-radius: 8px;
+  padding: 5px;
+  max-width: 500px;
+  height: 40px;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.input input:hover {
+  box-shadow: 2px 2px 2px black;
+  outline: 1px solid #000000;
+}
+.input label {
+  color: #423f3f;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.input span {
+  margin-bottom: 5px;
+  color: #db1010;
+}
+/*# sourceMappingURL=input.module.css.map */

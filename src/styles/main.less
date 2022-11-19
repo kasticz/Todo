@@ -1,0 +1,58 @@
+@import './variables.less';
+main{
+    width: 1300px;
+}
+button,input{
+    border: none;
+    outline: none;
+}
+
+.container{
+    width: 1300px;
+    margin: 0 auto; 
+}
+
+.download{
+    width: 100px;
+    height: 30px;
+}
+h1{
+    width: 400px;
+    color: @titlesColor;
+    cursor: pointer;
+}
+.tasks{
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    width: 800px;
+    background-color: #fff;
+    margin: 0 auto;
+    border-radius: 12px; 
+    li{
+        &:nth-child(n){
+            border-bottom: 1px solid black;
+        }
+        &:nth-last-child(1){
+            border-bottom: none;
+        }
+    }
+    box-shadow: 2px 2px 2px black
+}
+ul{
+    padding: 0;
+}
+.error{
+    text-align: center;
+    font-size: 30px;
+    color: @inputErrorColor
+}
+.createNewTask{
+    .button();
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
+}
