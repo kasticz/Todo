@@ -12,7 +12,7 @@ import styles from "../stylesComputed/task.module.css";
 
 export function Task(props) {
   dayjs.extend(customParseFormat)
-  const dateDiff = dayjs('20-11-2022 20:53','DD-MM-YYYY HH:mm').unix() - dayjs().unix()
+  const dateDiff = dayjs(props.item.endDate,'DD-MM-YYYY HH:mm').unix() - dayjs().unix()
   async function deleteT(){
     const err = await deleteTask(props.item)
     if(err?.message){

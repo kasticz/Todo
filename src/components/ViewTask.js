@@ -14,7 +14,7 @@ import styles from "../stylesComputed/viewTask.module.css";
 export function ViewTask(props) {
   const [attachedFiles, setAttachedFiles] = useState([]);
 
-  // const date = dayjs(getDate('21-11-2022 15:42')).unix() - dayjs().unix()
+ 
 
 
 
