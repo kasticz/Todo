@@ -1,20 +1,25 @@
 import dayjs from "dayjs"
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 
-export default function getDate(date,withoudWeekDay){
+/**
+ * @module logic_date
+ */
+
+/**
+ * Принимает дату, форматирует и возвращает её
+ * @param {string} date - Дата 
+ * @param {boolean} withoudWeekDay - Нужно ли возвращать дату без дня недели, используется для режима редактирования задачи 
+ * @returns {string} - форматированная дата
+ */
+ function getDate(date,withoudWeekDay){
+    dayjs.extend(customParseFormat)
     if(withoudWeekDay){
-        return dayjs(date).format('DD-MM-YYYY HH:mm')
+        return dayjs(date,'DD-MM-YYYY HH:mm').format('DD-MM-YYYY HH:mm')
     }
-    const days={
-        Monday:'Понедельник',
-        Tuesday:'Вторник',
-        Wednesday:'Среда',
-        Thursday:'Четверг',
-        Friday:'Пятница',
-        Saturday:'Суббота',
-        Sunday:'Воскресенье'
-    }
+   
+    const dateFormatted = dayjs(date,'DD-MM-YYYY HH:mm').format('dddd, DD-MM-YYYY HH:mm')
 
-    const dateFormatted = dayjs(date).format('dddd, DD-MM-YYYY HH:mm')
-    const day = dateFormatted.slice(0,dateFormatted.indexOf(','))
-    return dateFormatted.replace(day,days[day])
+    return dateFormatted
 }
+
+export default getDate

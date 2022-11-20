@@ -1,24 +1,41 @@
 import dayjs from "dayjs";
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import { deleteAttached } from "./storage";
 
-export async function createTaskFromForm(form,initialTitle){
-    const title = form.get('title');
-    const formats = ["DD-MM-YYYY hh:mm","DD-MM-YYYY","DD.MM.YYYY hh:mm","DD.MM.YYYY"]
-    const formattedDate = dayjs(form.get('endDate').trim(),formats)
+/**
+ * @module firebase_database
+ */
+
+/**
+ * загружает объект задачи в базу данных firebase или редактирует уже существующую задачу
+ * @param {FormData} form - объект формы задачи с полями title,descr,endDate,finished
+ * @param {number} id - id задачи 
+ * @returns {undefined | object} - объект ошибки или undefined, если ошибки нет
+ */
+export async function createTaskFromForm(form,id){
+    dayjs.extend(customParseFormat)
+    const formats = ["DD-MM-YYYY HH:mm","DD-MM-YYYY","DD.MM.YYYY HH:mm","DD.MM.YYYY"]
+    const formattedDate = dayjs(form.get('endDate').trim(),formats).format("DD-MM-YYYY HH:mm")
     form.set('endDate',formattedDate)
+
+
+  
+    const body = JSON.stringify({
+        id: id,
+        title: form.get('title'),
+        descr:form.get('descr'),
+        endDate: form.get('endDate'),
+        finished: form.get('finished') || false
+    })
+
 
     let error;
 
 
     try{
-        const resp = await fetch(`https://react-72706-default-rtdb.europe-west1.firebasedatabase.app/Todo/${title}.json`,{
+        const resp = await fetch(`https://react-72706-default-rtdb.europe-west1.firebasedatabase.app/Todo/${id}.json`,{
             method:'PUT',
-            body: JSON.stringify({
-                title: form.get('title'),
-                descr:form.get('descr'),
-                endDate: form.get('endDate'),
-                finished: form.get('finished') || false
-            }),
+            body: body ,
             headers:{
                 'Content-type':'application/json'
             }
@@ -27,11 +44,8 @@ export async function createTaskFromForm(form,initialTitle){
         if(resp.status !== 200){
             throw new Error(resp.statusText)
         }
-        if(initialTitle &&  title !== initialTitle){
-            deleteTask({title:initialTitle})
-        }
     }catch(err){
-        error =  err.message
+        error =  err
     }
 
 
@@ -41,6 +55,11 @@ export async function createTaskFromForm(form,initialTitle){
 
 }
 
+
+/**
+ * Загружает все задачи из базы данных firebase
+ * @returns {object} - объект со всеми задачами или объект ошибки
+ */
 
 export async function fetchTasks(){
     let error;
@@ -57,28 +76,28 @@ export async function fetchTasks(){
     }catch(err){
         error =  err
     }
+
     return data || error;
 }
-
+/**
+ * Удаляет задачу из базы данных firebase
+ * @param {object} item - объект задачи
+ * @returns {undefined | object} - объект ошибки или undefined, если ошибки нет
+ */
 export async function deleteTask(item){
 
     try{
-        const resp = await fetch(`https://react-72706-default-rtdb.europe-west1.firebasedatabase.app/Todo/${item.title}.json`,{
+        const resp = await fetch(`https://react-72706-default-rtdb.europe-west1.firebasedatabase.app/Todo/${item.id}.json`,{
             method:"DELETE"
         })
         if(resp.status !== 200){
             throw new Error(resp.statusText)
         } 
-        await  deleteAttached(item.title)
+        await  deleteAttached(item.id)
 
 
     }catch(err){
         return err
     }
-
-    
-
-   
-
-
+  
 }

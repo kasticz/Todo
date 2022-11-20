@@ -1,14 +1,21 @@
-import dayjs from "dayjs";
 import { useEffect, useState, useMemo } from "react";
 import { getAllFiles } from "../firebase/storage";
 import getDate from "../logic/getDate";
 import styles from "../stylesComputed/viewTask.module.css";
-export default function ViewTask(props) {
+/**
+ * @module ViewTask_components
+ */
+
+/**
+ * функция-компонент позволяет просмотреть данные задачи и загрузить прикрепленные файлы
+ * @param {object} - в пропсах должен быть объект задачи item, состояние приложения currMode и функция изменения глобального состояния ошибки setError
+ */
+export function ViewTask(props) {
   const [attachedFiles, setAttachedFiles] = useState([]);
 
   useEffect(() => {
     async function getAttached() {
-      const fetchedAttached = await getAllFiles(props.item.title);
+      const fetchedAttached = await getAllFiles(props.item.id);
       if (fetchedAttached.message) {
         props.setError(fetchedAttached.message);
         return;
@@ -66,3 +73,5 @@ export default function ViewTask(props) {
     </div>
   );
 }
+
+export default ViewTask

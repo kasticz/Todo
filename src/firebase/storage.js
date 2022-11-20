@@ -24,25 +24,26 @@ const app = initializeApp(firebaseConfig);
 export const storage = getStorage();
 
 export const storageRef = ref(storage);
+/**
+ * @module firebase_storage
+ */
 
-const imagesRef = ref(storage, "images");
-
-//   const oil = ref(storage,'');
-
-export async function getAllFiles(taskTitle) {
+/**
+ * Загружает все прикрепленные файлы по ID задачи
+ * @param {number} taskID - ID задачи 
+ * @returns {Array<object> | object} - массив blob файлов или объект ошибки
+ */
+export async function getAllFiles(taskID) {
   try{
    
     const files = [];
   
-    const taskRef = ref(storage,`files/${taskTitle}`)
+    const taskRef = ref(storage,`files/${taskID}`)
     const fetchedRefsForTask = [];
     const finalFilesForTask = []
     await listAll(taskRef).then(
       (res) => fetchedRefsForTask.push(...res.items)
     );
-
-  
-  
   
     for (let i = 0; i < fetchedRefsForTask.length; i++) { 
       const resp = await getDownloadURL(fetchedRefsForTask[i])
@@ -50,7 +51,6 @@ export async function getAllFiles(taskTitle) {
       file.name = fetchedRefsForTask[i].name
       finalFilesForTask.push(file)
     }
-  
   
     return finalFilesForTask;
 
@@ -61,8 +61,13 @@ export async function getAllFiles(taskTitle) {
 
 
 }
-
-export async function uploadFiles(files, title) {
+/**
+ * Загружает файлы в firebase storage
+ * @param {Array<object>} files - массив blob файлов
+ * @param {number} taskId -  ID задачи 
+ * @returns {undefined | object} - объект ошибки или ничего, если загрузка выполнилась успешно
+ */
+export async function uploadFiles(files, taskId) {
   let error;
 
   try {
@@ -70,22 +75,26 @@ export async function uploadFiles(files, title) {
       if(files[i].size === 0){
         continue
       }
-      const newRef = ref(storage, `files/${title}/${files[i].name}`);
+      const newRef = ref(storage, `files/${taskId}/${files[i].name}`);
       const resp = await uploadBytes(newRef, files[i]);
     }
   } catch (err) {
-    error = err.message;
+    error = err;
   }
 
   return error;
 }
 
-
-export async function deleteAttached(title){
+/**
+ * Удаляет прикрепленные к задаче файлы по ID
+ * @param {number} taskID - ID задачи
+ * @returns {undefined | object} - объект ошибки или ничего, если удаление выполнилось успешно
+ */
+export async function deleteAttached(taskID){
 
   let error;
   try{
-    const taskRef = ref(storage,`files/${title}`)
+    const taskRef = ref(storage,`files/${taskID}`)
     const allFiles = []
     await listAll(taskRef).then(
       (res) => allFiles.push(...res.items)
@@ -93,12 +102,10 @@ export async function deleteAttached(title){
     allFiles.forEach(item => deleteObject(item))
 
   }catch(err){
-    error = err.message
+    error = err
   }
   return error;
 
-
-  
 }
 
 
