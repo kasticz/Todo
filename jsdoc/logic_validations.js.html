@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: logic/validations.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: logic/validations.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+
+/**
+ * @module logic_validations
+ */
+
+/**
+ * Валидация значения поля 'title' формы создания или редактирования задачи. Заголовок не должен быть пустыи и повторять уже существующие.
+ * @param {function} setForm -  устанавливает state формы после валидации
+ * @param {Array&lt;string>} allTitles - массив уже существующих заголовков задач
+ * @param {string|undefined} currTitle - изначальный заголовок для сравнения с отредактированным(только в режиме редактирования)
+ * @param {string} input - значение поля 'title'
+ * @param {function}setError - устанавливает state ошибки после валидации
+ */
+export function TitleValidation(setForm, allTitles, currTitle, input, setError) {
+  const i = input.trim();
+  let error = "";
+  if (!i) {
+    error = "Заголовок не должен быть пустым";
+  }
+  if (allTitles.includes(i) &amp;&amp; i !== currTitle) {
+    error = "Такой заголовок уже существует";
+  }
+  if (error) {
+    setError(error);
+    setFormError(setForm, "title", false);
+    return;
+  }
+
+  setError(false);
+  setFormError(setForm, "title", true);
+}
+/**
+ * Валидация значения поля 'descr' формы создания или редактирования задачи. Описание не должно быть пустым.
+ * @param {function} setForm -  устанавливает state формы после валидации
+ * @param {string} input - значение поля 'descr'
+ * @param {function} setError - устанавливает state ошибки после валидации
+ */
+export function DescrValidation(setForm, input, setError) {
+  if (!input.trim()) {
+    setError("Описание не должно быть пустым");
+    setFormError(setForm, "descr", false);
+    return;
+  }
+
+  setFormError(setForm, "descr", true);
+  setError(false);
+}
+/**
+ * Валидация значения поля 'endDate' формы создания или редактирования задачи. Дата должна быть создана в одном из следующих форматов : ["DD-MM-YYYY HH:mm","DD-MM-YYYY","DD.MM.YYYY hh:mm","DD.MM.YYYY"] и не быть раньше настоящего времени
+ * @param {function} setError -  устанавливает state формы после валидации
+ * @param {string} input - значение поля 'endDate'
+ * @param {function} setError - устанавливает state ошибки после валидации
+ */
+export function DateValidation(setForm, input, setError) {
+  dayjs.extend(customParseFormat);
+  const trimmed = input.trim();
+  const formats = [
+    "DD-MM-YYYY HH:mm",
+    "DD-MM-YYYY",
+    "DD.MM.YYYY hh:mm",
+    "DD.MM.YYYY",
+  ];
+  const formatted = dayjs(trimmed, formats);
+  let err;
+
+  if (formatted.unix() &lt; dayjs().unix()) {
+    err = "Дата завершения не должна быть раньше настоящего времени";
+  }
+  if (!formatted.isValid()) {
+    err = "Введите данные в формате DD.MM.YYYY hh:mm или DD.MM.YYYY";
+  }
+  if (err) {
+    setError(err);
+    setFormError(setForm, "endDate", false);
+    return;
+  }
+  setFormError(setForm, "endDate", true);
+  setError(false);
+}
+/**
+ * Валидация значения поля 'attached' формы создания или редактирования задачи. Прикрепленные файлы не должны быть больше 10 МБ.
+ * @param {function} setForm -  устанавливает state формы после валидации
+ * @param {string} input -  путь файлов
+ * @param {function} setError - устанавливает state ошибки после валидации
+ * @param {Event} e - объект события, для просмотра размера файлов
+ */
+export function AttachedValidation(setForm, input, setError, e) {
+  const maxMB = 10;
+  const maxSize = 1048576 * maxMB;
+  const files = e.target.files;
+  for (let i = 0; i &lt; files.length; i++) {
+    if (files[i].size > maxSize) {
+      setError(
+        `${files[i].name} слишком большой. Размер файла не должен превышать 10 МБ`
+      );
+      setFormError(setForm, "attached", false);
+      return;
+    }
+  }
+
+  setFormError(setForm, "attached", true);
+  setError(false);
+}
+/**
+ * устанавливает результат валидации в state формы
+ * @param {function} set - функция обновления state формы
+ * @param {string} inputName - названия поля формы
+ * @param {boolean} inputStatus - результат валидации поля формы
+ */
+function setFormError(set, inputName, inputStatus) {
+  set((prevState) => {
+    const updatedForm = { ...prevState };
+    updatedForm[inputName] = inputStatus;
+    return updatedForm;
+  });
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-CreateTask_component.html">CreateTask_component</a></li><li><a href="module-Input_component.html">Input_component</a></li><li><a href="module-Task_component.html">Task_component</a></li><li><a href="module-ViewTask_components.html">ViewTask_components</a></li><li><a href="module-firebase_database.html">firebase_database</a></li><li><a href="module-firebase_storage.html">firebase_storage</a></li><li><a href="module-logic_date.html">logic_date</a></li><li><a href="module-logic_validations.html">logic_validations</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.0</a> on Sun Nov 20 2022 19:30:06 GMT+0300 (Москва, стандартное время)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
