@@ -1,4 +1,6 @@
+import dayjs from "dayjs";
 import { deleteTask } from "../firebase/dbs";
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import styles from "../stylesComputed/task.module.css";
 /**
  * @module  Task_component
@@ -9,6 +11,8 @@ import styles from "../stylesComputed/task.module.css";
  */
 
 export function Task(props) {
+  dayjs.extend(customParseFormat)
+  const dateDiff = dayjs('20-11-2022 20:53','DD-MM-YYYY HH:mm').unix() - dayjs().unix()
   async function deleteT(){
     const err = await deleteTask(props.item)
     if(err?.message){
@@ -19,6 +23,7 @@ export function Task(props) {
   }
   return (
     <li className={styles.task}>
+      {dateDiff < 0 && <span className={styles.expiration}>Дата завершения задачи истекла!</span>}
       <p>{props.item.title}</p>
       <div className={styles.buttons}>
         <button onClick={()=>{props.changeMode(['view',props.item.id])}} className={styles.read}>Просмотр</button>

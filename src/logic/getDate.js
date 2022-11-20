@@ -16,9 +16,10 @@ import customParseFormat from 'dayjs/plugin/customParseFormat'
     if(withoudWeekDay){
         return dayjs(date,'DD-MM-YYYY HH:mm').format('DD-MM-YYYY HH:mm')
     }
+    
    
     const dateFormatted = dayjs(date,'DD-MM-YYYY HH:mm').format('dddd, DD-MM-YYYY HH:mm')
-
+    // console.log(dateFormatted)
     return dateFormatted
 }
 

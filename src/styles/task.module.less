@@ -1,5 +1,6 @@
 @import './variables.less';
 .task{
+    position: relative;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -23,4 +24,12 @@
     height: 40px;
     margin-right: 10px;
     padding: 5px;
+}
+.expiration{
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: @inputErrorColor;
+    font-size: 16px;
 }

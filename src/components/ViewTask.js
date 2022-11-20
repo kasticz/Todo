@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { getAllFiles } from "../firebase/storage";
 import getDate from "../logic/getDate";
+
 import styles from "../stylesComputed/viewTask.module.css";
 /**
  * @module ViewTask_components
@@ -12,6 +13,10 @@ import styles from "../stylesComputed/viewTask.module.css";
  */
 export function ViewTask(props) {
   const [attachedFiles, setAttachedFiles] = useState([]);
+
+  // const date = dayjs(getDate('21-11-2022 15:42')).unix() - dayjs().unix()
+
+
 
   useEffect(() => {
     async function getAttached() {
